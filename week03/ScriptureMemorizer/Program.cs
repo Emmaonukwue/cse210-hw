@@ -1,33 +1,45 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
-        // My creativity:
-        // - I used multiple constructors in Reference class (single and range).
-        // - It randomly hides only unhidden words.
-        // - I cleaned class design using encapsulation and separation of concerns.
-    
-        Reference reference = new Reference("Proverbs", 3, 5, 6);
-        string text = "Trust in the Lord with all thine heart and lean not unto thine own understanding.";
-        Scripture scripture = new Scripture(reference, text);
+        // My Creativity:
+        // - I added scripture bank to pick random scripture each run
 
-        while (!scripture.AllWordsHidden())
+        // Random scripture bank
+        List<Scripture> scriptures = new List<Scripture>()
         {
-            scripture.Display();
+            new Scripture(new Reference("John", 3, 16), "For God so loved the world that he gave his only begotten Son."),
+            new Scripture(new Reference("Proverbs", 3, 5, 6), "Trust in the Lord with all thine heart and lean not unto thine own understanding."),
+            new Scripture(new Reference("2 Nephi", 2, 25), "Adam fell that men might be; and men are, that they might have joy."),
+            new Scripture(new Reference("Alma", 37, 6), "By small and simple things are great things brought to pass.")
+        };
 
-            Console.WriteLine("\nPress Enter to hide words or type 'quit' to exit.");
+        // Pick one scripture randomly
+        Random random = new Random();
+        Scripture chosenScripture = scriptures[random.Next(scriptures.Count)];
+
+        // Show initial scripture
+        while (!chosenScripture.AllWordsHidden())
+        {
+            Console.Clear();
+            Console.WriteLine(chosenScripture.GetDisplayText());
+            Console.WriteLine();
+            Console.Write("Press Enter to hide more words or type 'quit' to exit: ");
             string input = Console.ReadLine();
-
             if (input.ToLower() == "quit")
+            {
                 break;
+            }
 
-            scripture.HideRandomWords(3);
+            chosenScripture.HideRandomWords();
         }
 
-        // Final display with all words hidden
-        scripture.Display();
-        Console.WriteLine("\nAll words hidden. Good job practicing!");
+        Console.Clear();
+        Console.WriteLine("All words are hidden. Final scripture:");
+        Console.WriteLine(chosenScripture.GetDisplayText());
     }
 }
+

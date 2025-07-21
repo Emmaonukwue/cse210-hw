@@ -1,30 +1,35 @@
 public class Reference
 {
-    public string Book { get; }
-    public int Chapter { get; }
-    public int StartVerse { get; }
-    public int? EndVerse { get; }
+    private string _book;
+    private int _startVerse;
+    private int _endVerse;
+    private int _chapter;
 
     public Reference(string book, int chapter, int verse)
     {
-        Book = book;
-        Chapter = chapter;
-        StartVerse = verse;
-        EndVerse = null;
+        _book = book;
+        _chapter = chapter;
+        _startVerse = verse;
+        _endVerse = verse;
     }
 
     public Reference(string book, int chapter, int startVerse, int endVerse)
     {
-        Book = book;
-        Chapter = chapter;
-        StartVerse = startVerse;
-        EndVerse = endVerse;
+        _book = book;
+        _chapter = chapter;
+        _startVerse = startVerse;
+        _endVerse = endVerse;
     }
 
-    public override string ToString()
+    public string GetDisplayText()
     {
-        return EndVerse == null
-            ? $"{Book} {Chapter}:{StartVerse}"
-            : $"{Book} {Chapter}:{StartVerse}-{EndVerse}";
+        if (_startVerse == _endVerse)
+        {
+            return $"{_book} {_chapter}:{_startVerse}";
+        }
+        else
+        {
+            return $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
+        }
     }
 }
