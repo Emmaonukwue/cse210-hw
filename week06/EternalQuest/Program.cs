@@ -1,9 +1,21 @@
 using System;
 
-class Program
+namespace EternalQuest
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello World! This is the EternalQuest Project.");
+        /*
+        Exceeding Requirements
+        1) Program shows level and a badge title from the player’s score.
+        2) Feedback: the user receives messages when they record goal
+        3) Save/Load: made the save and load simple
+        */
+
+        static void Main(string[] args)
+        {
+            Console.Title = "Eternal Quest";
+            GoalManager manager = new GoalManager();
+            manager.Start();
+        }
     }
 }
